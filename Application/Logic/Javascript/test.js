@@ -26,6 +26,3 @@ function startClock() {
         $('#time').html(new Date().toLocaleTimeString());
     }, 1000);
 }
-
-
-
