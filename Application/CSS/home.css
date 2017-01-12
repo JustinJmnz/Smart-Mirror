@@ -1,28 +1,20 @@
-﻿body {
+html {
+    height: 100%;
+}
+body {
     font-family: 'Armata', sans-serif;
+    height: 100%;
 }
-
-/* Slider */
-slider-viewer {
-    position: relative;
-    overflow: hidden;
-    height: 300px;
-}
-
-.slider-group{
+#main-container {
     width: 100%;
     height: 100%;
-    position: relative;
 }
-
-.slide {
-    width: 100%;
-    height: 100%;
-    display: none;
-    position: absolute;
+#section-1 {
+    height: 25%;
 }
-
-.slide:first-child {
-    display: block;
+#section-2 {
+    height: 50%;
 }
-/* End Slider */
+#section-3 {
+    height: 25%;
+}
