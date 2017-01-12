@@ -1,13 +1,13 @@
 
 
-$(function () {
+$(function () { // Main Function
     var mainContainer = $('#main-container');
     var section1 = $('#section-1');
     var section2 = $('#section-2');
     var section3 = $('#section-3');
 
     startListening();
-    section3.append(getTimeDiv());
+    section2.append(getTimeDiv());
 
     function startListening() {
         if (annyang) {
