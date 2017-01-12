@@ -1,26 +1,32 @@
 
 
 $(function () { // Main Function
+    startListening();
+
     var mainContainer = $('#main-container');
     var section1 = $('#section-1');
     var section2 = $('#section-2');
     var section3 = $('#section-3');
 
-    startListening();
     section2.append(getTimeDiv());
 
     function startListening() {
+        console.log('inside function');
         if (annyang) {
+            console.log('inside if');
             // Let's define a command.
             var commands = {
-                'hello': function () { alert('Hello world!'); }
+                'hi': function () { console.log('you said hi'); }
             };
+            console.log('Set up commands');
 
             // Add our commands to annyang
             annyang.addCommands(commands);
+            console.log('added commands');
             //https://www.talater.com/annyang/ for more examples
             // Start listening.
             annyang.start();
+            console.log('Started Listening');
         }
     }
     function getTimeDiv() {
