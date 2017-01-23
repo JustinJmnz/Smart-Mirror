@@ -4,37 +4,37 @@ $(function () { // Main Function
     startListening();
 
     var mainContainer = $('#main-container');
-    var section1 = $('#section-1');
-    var section2 = $('#section-2');
-    var section3 = $('#section-3');
+    var sectionTop = $('#section-top');
+    var sectionMiddle = $('#section-middle');
+    var sectionBottom = $('#section-bottom');
+    var paneLeft = $('#pane-left');
+    var paneMiddle = $('#pane-middle');
+    var paneRight = $('#pane-right');
 
-    section2.append(getTimeDiv());
+    sectionMiddle.append(getTimeDiv());
 
-    function startListening() {
-        console.log('inside function');
-        if (annyang) {
-            console.log('inside if');
-            // Let's define a command.
-            var commands = {
-                'hi': function () { console.log('you said hi'); }
-            };
-            console.log('Set up commands');
-
-            // Add our commands to annyang
-            annyang.addCommands(commands);
-            console.log('added commands');
-            //https://www.talater.com/annyang/ for more examples
-            // Start listening.
-            annyang.start();
-            console.log('Started Listening');
-        }
-    }
+    // Creates a div with the time in it
     function getTimeDiv() {
+        console.log('Creating time divs');
         var timeDiv = $('<div></div>');
         timeDiv.append('<p id="time"></p>');
         setInterval(function() {
             timeDiv.html(new Date().toLocaleTimeString());
         }, 1000);
         return timeDiv;
+    }
+    // Starts the Speech to text
+    function startListening() {
+        if (annyang) {
+            // Let's define a command.
+            var commands = {
+                'hi': function () { console.log('you said hi'); }
+            };
+            // Add our commands to annyang
+            annyang.addCommands(commands);
+            //https://www.talater.com/annyang/ for more examples
+            // Start listening.
+            annyang.start();
+        }
     }
 });
