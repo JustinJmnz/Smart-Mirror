@@ -35,34 +35,34 @@ $(function () { // Main Function
         switch (number) {
             case 1:
                 var widgetImg = widgetOne.children().first();
-                if (widgetImg.hasClass('bump-up')){
-                    widgetImg.removeClass('bump-up');
+                if (widgetImg.hasClass('bump-down')){
+                    widgetImg.removeClass('bump-down');
                 }else {
-                    widgetImg.addClass('bump-up');
+                    widgetImg.addClass('bump-down');
                 }
                 break;
             case 2:
                 var widgetImg = widgetTwo.children().first();
-                if (widgetImg.hasClass('bump-up')){
-                    widgetImg.removeClass('bump-up');
+                if (widgetImg.hasClass('bump-down')){
+                    widgetImg.removeClass('bump-down');
                 }else {
-                    widgetImg.addClass('bump-up');
+                    widgetImg.addClass('bump-down');
                 }
                 break;
             case 3:
                 var widgetImg = widgetThree.children().first();
-                if (widgetImg.hasClass('bump-up')){
-                    widgetImg.removeClass('bump-up');
+                if (widgetImg.hasClass('bump-down')){
+                    widgetImg.removeClass('bump-down');
                 }else {
-                    widgetImg.addClass('bump-up');
+                    widgetImg.addClass('bump-down');
                 }
                 break;
             case 4:
                 var widgetImg = widgetFour.children().first();
-                if (widgetImg.hasClass('bump-up')){
-                    widgetImg.removeClass('bump-up');
+                if (widgetImg.hasClass('bump-down')){
+                    widgetImg.removeClass('bump-down');
                 }else {
-                    widgetImg.addClass('bump-up');
+                    widgetImg.addClass('bump-down');
                 }
                 break;
             default:
