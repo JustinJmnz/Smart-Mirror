@@ -15,13 +15,12 @@ body {
 }
 
 .widget {
-    width: 22%;
+    width: 20%;
     display: inline-block;
     vertical-align: top;
     margin: 10px;
     padding: 10px;
     text-align: center;
-
 }
 .widget > img {
      -webkit-transition: margin 0.5s ease-out;
