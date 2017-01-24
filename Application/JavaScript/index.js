@@ -14,19 +14,6 @@ $(function () { // Main Function
     var sectionBottom = $('#section-bottom');
     var hub = $('#hub');
 
-    setInterval(function() {
-        focusWidget(1);
-    }, 1000);
-    setInterval(function() {
-        focusWidget(2);
-    }, 1100);
-    setInterval(function() {
-        focusWidget(3);
-    }, 1200);
-    setInterval(function() {
-        focusWidget(4);
-    }, 1300);
-
     hub.append(getTimeDiv());
 
 
@@ -69,6 +56,13 @@ $(function () { // Main Function
                 console.log("focusWidget() -> default case");
         }
     }
+    // Removes focus from all widgets
+    function clearFocus() {
+        widgetOne.children().first().removeClass('bump-down');
+        widgetTwo.children().first().removeClass('bump-down');
+        widgetThree.children().first().removeClass('bump-down');
+        widgetFour.children().first().removeClass('bump-down');
+    }
     // Creates a div with the time in it
     function getTimeDiv() {
         console.log('Creating time divs');
@@ -84,7 +78,23 @@ $(function () { // Main Function
         if (annyang) {
             // Let's define a command.
             var commands = {
-                'hi': function () { console.log('you said hi'); }
+                'hi mirror': function () { $('#hub').append('<p>Hello</p>'); },
+                'show me the weather': function() {
+                    clearFocus();
+                    focusWidget(2);
+                },
+                'show me the time': function() {
+                    clearFocus();
+                    focusWidget(1);
+                },
+                'show me the map': function() {
+                    clearFocus();
+                    focusWidget(3);
+                },
+                'show me the news': function() {
+                    clearFocus();
+                    focusWidget(4);
+                }
             };
             // Add our commands to annyang
             annyang.addCommands(commands);
