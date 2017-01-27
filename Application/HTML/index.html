@@ -8,6 +8,10 @@
         <script type="text/javascript" src="../../Resources/Libraries/annyang.js"></script>
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Armata|Poiret+One" rel="stylesheet">
+
+        <!--  Weather Widget script -->
+        <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
+
         <!-- Our JavaScript -->
         <script type="text/javascript" src="../JavaScript/index.js"></script>
         <!-- Our CSS -->
@@ -19,21 +23,27 @@
         <div id="main-container">
             <div id="section-top">
                 <div class="widget">
-                    <img src="../../Resources/Pictures/clock-icon.png" height="100px" width="100px" />
+                    <img src="../../Resources/Pictures/clock-icon-white.png" height="100px" width="100px" />
                 </div>
                 <div class="widget">
-                    <img src="../../Resources/Pictures/weather-icon.png" height="100px" width="100px" />
+                    <img src="../../Resources/Pictures/weather-icon-white.png" height="100px" width="100px" />
                 </div>
                 <div class="widget">
-                    <img src="../../Resources/Pictures/maps-icon.png" height="100px" width="100px"/>
+                    <img src="../../Resources/Pictures/maps-icon-white.png" height="100px" width="100px"/>
                 </div>
                 <div class="widget">
-                    <img src="../../Resources/Pictures/news-icon.png" height="100px" width="100px"/>
+                    <img src="../../Resources/Pictures/news-icon-white.png" height="100px" width="100px"/>
                 </div>
             </div>
             <div id="section-bottom">
                 <div id="hub">
-
+                    <iframe  id="map" width="600" height="450" frameborder="10" style="border:10" src="https://www.google.com/maps/embed/v1/directions?origin=place_id:ChIJi7W5kQ4O6IkRzXyL4BnLnss&destination=place_id:ChIJC7zHsmShwokRbrc0nIuGQ4c&key=AIzaSyBjxjJwxoTVaM25QMcmIrLglwzmkwRmQEw" allowfullscreen></iframe>
+                    <a href="http://www.accuweather.com/en/us/bridgeport-ct/06605/weather-forecast/327355" class="aw-widget-legal">
+                    <!--
+                    By accessing and/or using this code snippet, you agree to AccuWeather’s terms and conditions (in English) which can be found at http://www.accuweather.com/en/free-weather-widgets/terms and AccuWeather’s Privacy Statement (in English) which can be found at http://www.accuweather.com/en/privacy.
+                    -->
+                    </a>
+                    <div id="weather" class="aw-widget-current"  data-locationkey="327355" data-unit="f" data-language="en-us" data-useip="false" data-uid="awcc1482808246923"></div>
                 </div>
             </div>
         </div>

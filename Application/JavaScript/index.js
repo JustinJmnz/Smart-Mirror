@@ -63,6 +63,12 @@ $(function () { // Main Function
         widgetThree.children().first().removeClass('bump-down');
         widgetFour.children().first().removeClass('bump-down');
     }
+    // Removes everything from #hub
+    function removeHubContents() {
+        hub.children().each(function() {
+            $(this).css('visibility', 'collapse');
+        });
+    }
     // Creates a div with the time in it
     function getTimeDiv() {
         console.log('Creating time divs');
@@ -78,22 +84,28 @@ $(function () { // Main Function
         if (annyang) {
             // Let's define a command.
             var commands = {
-                'hi mirror': function () { $('#hub').append('<p>Hello</p>'); },
+                'hi': function () { alert('Hello'); },
                 'show me the weather': function() {
                     clearFocus();
                     focusWidget(2);
+                    removeHubContents();
+                    $("#weather").css('visibility', 'visible');
                 },
                 'show me the time': function() {
                     clearFocus();
                     focusWidget(1);
+                    removeHubContents();
                 },
                 'show me the map': function() {
                     clearFocus();
                     focusWidget(3);
+                    removeHubContents();
+                    $("#map").css('visibility', 'visible');
                 },
                 'show me the news': function() {
                     clearFocus();
                     focusWidget(4);
+                    removeHubContents();
                 }
             };
             // Add our commands to annyang
