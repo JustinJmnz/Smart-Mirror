@@ -13,7 +13,11 @@
         <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
 
         <!-- Our JavaScript -->
-        <script type="text/javascript" src="../JavaScript/index.js"></script>
+        <script type="text/javascript" src="../JavaScript/animations.js"></script>
+        <script type="text/javascript" src="../JavaScript/widgets.js"></script>
+        <script type="text/javascript" src="../JavaScript/news.js"></script>
+        <script type="text/javascript" src="../JavaScript/speechRecognition.js"></script> <!-- Load this second to last -->
+        <script type="text/javascript" src="../JavaScript/index.js"></script> <!-- Load this last -->
         <!-- Our CSS -->
         <link rel="stylesheet" type="text/css" href="../CSS/index.css" />
 
@@ -37,6 +41,29 @@
             </div>
             <div id="section-bottom">
                 <div id="hub">
+                    <div id="news-container">
+                        <div class="news-firstRow">
+                            <div class="news-icon">
+                                <img src="../../Resources/Pictures/news-icon.png" height="100px" width="100px"/>
+                            </div>
+                            <div class="news-title">
+                                <h3>Smart Mirror sales booming</h3>
+                            </div>
+                        </div>
+                        <div class="news-secondRow">
+                            <div class="news-description">
+                                <p>The Smart Mirror team is coming up with more products everyday</p>
+                            </div>
+                        </div>
+                        <div class="news-thirdRow">
+                            <div class="news-publishedDate">
+                                <p>Published on: 3-29-2017</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                     <iframe  id="map" width="600" height="450" frameborder="10" style="border:10" src="https://www.google.com/maps/embed/v1/directions?origin=place_id:ChIJi7W5kQ4O6IkRzXyL4BnLnss&destination=place_id:ChIJC7zHsmShwokRbrc0nIuGQ4c&key=AIzaSyBjxjJwxoTVaM25QMcmIrLglwzmkwRmQEw" allowfullscreen></iframe>
                     <a href="http://www.accuweather.com/en/us/bridgeport-ct/06605/weather-forecast/327355" class="aw-widget-legal">
                     <!--
