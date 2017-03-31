@@ -19,7 +19,8 @@ $(function () { // Main Function
     // var hub = $('#hub');
 
     //annyang.trigger('show me the news of cnn');
-
+    // var newsContainer = $('#news-container');
+    // slideIntoHub(newsContainer);
 
 
 
@@ -34,6 +35,8 @@ $(function () { // Main Function
         return timeDiv;
     }
 
-
-
+    $('.widget').click(function() {
+        console.log('Clicked');
+        annyang.trigger('Show me the news from ESPN');
+    });
 });

@@ -23,6 +23,10 @@ function startListening() {
                 focusWidget(3);
                 $("#map").css('visibility', 'visible');
             },
+            '(go to)(next)(article)': function() {
+                console.log('Here');
+                nextArticle();
+            },
             // Get the news
             '(what is) (what\'s) (show me) (the) (most) (:filter) (today\'s) (news) (story) (of) (today) (from) (:dataSource)': function(filter, dataSource) {
                 focusWidget(4);

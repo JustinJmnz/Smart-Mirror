@@ -6,11 +6,10 @@
         <script type="text/javascript" src="../../Resources/Libraries/jquery-3.1.1.js"></script>
         <!-- STT Engine -->
         <script type="text/javascript" src="../../Resources/Libraries/annyang.js"></script>
+        <!-- Article Cleaner script -->
+        <script type="text/javascript" src="../../Resources/Libraries/diffbot.js"></script>
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Armata|Poiret+One" rel="stylesheet">
-
-        <!--  Weather Widget script -->
-        <script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>
 
         <!-- Our JavaScript -->
         <script type="text/javascript" src="../JavaScript/animations.js"></script>
@@ -27,50 +26,24 @@
         <div id="main-container">
             <div id="section-top">
                 <div class="widget">
-                    <img src="../../Resources/Pictures/clock-icon-white.png" height="100px" width="100px" />
+                    <img src="../../Resources/Pictures/clock-icon-eggshell.png" height="100px" width="100px" />
                 </div>
                 <div class="widget">
-                    <img src="../../Resources/Pictures/weather-icon-white.png" height="100px" width="100px" />
+                    <img src="../../Resources/Pictures/weather-icon-eggshell.png" height="100px" width="100px" />
                 </div>
                 <div class="widget">
-                    <img src="../../Resources/Pictures/maps-icon-white.png" height="100px" width="100px"/>
+                    <img src="../../Resources/Pictures/maps-icon-eggshell.png" height="100px" width="100px"/>
                 </div>
                 <div class="widget">
-                    <img src="../../Resources/Pictures/news-icon-white.png" height="100px" width="100px"/>
+                    <img src="../../Resources/Pictures/news-icon-eggshell.png" height="100px" width="100px"/>
                 </div>
+                <span class="strech"></span>
             </div>
             <div id="section-bottom">
                 <div id="hub">
-                    <div id="news-container">
-                        <div class="news-firstRow">
-                            <div class="news-icon">
-                                <img src="../../Resources/Pictures/news-icon.png" height="100px" width="100px"/>
-                            </div>
-                            <div class="news-title">
-                                <h3>Smart Mirror sales booming</h3>
-                            </div>
-                        </div>
-                        <div class="news-secondRow">
-                            <div class="news-description">
-                                <p>The Smart Mirror team is coming up with more products everyday</p>
-                            </div>
-                        </div>
-                        <div class="news-thirdRow">
-                            <div class="news-publishedDate">
-                                <p>Published on: 3-29-2017</p>
-                            </div>
-                        </div>
-                    </div>
-
-
+                    <!-- <iframe width="416" height="234" src="//fave.api.cnn.io/v1/fav/?video=politics/2017/03/30/trump-russian-measures-clinton-watts-sot.cnn&customer=cnn&edition=domestic&env=prod" frameborder="0"></iframe> -->
 
                     <iframe  id="map" width="600" height="450" frameborder="10" style="border:10" src="https://www.google.com/maps/embed/v1/directions?origin=place_id:ChIJi7W5kQ4O6IkRzXyL4BnLnss&destination=place_id:ChIJC7zHsmShwokRbrc0nIuGQ4c&key=AIzaSyBjxjJwxoTVaM25QMcmIrLglwzmkwRmQEw" allowfullscreen></iframe>
-                    <a href="http://www.accuweather.com/en/us/bridgeport-ct/06605/weather-forecast/327355" class="aw-widget-legal">
-                    <!--
-                    By accessing and/or using this code snippet, you agree to AccuWeather’s terms and conditions (in English) which can be found at http://www.accuweather.com/en/free-weather-widgets/terms and AccuWeather’s Privacy Statement (in English) which can be found at http://www.accuweather.com/en/privacy.
-                    -->
-                    </a>
-                    <div id="weather" class="aw-widget-current"  data-locationkey="327355" data-unit="f" data-language="en-us" data-useip="false" data-uid="awcc1482808246923"></div>
                 </div>
             </div>
         </div>
