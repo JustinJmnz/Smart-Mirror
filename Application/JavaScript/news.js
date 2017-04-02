@@ -42,7 +42,7 @@ function getNews(sortedBy, dataSource) {
         url: "https://newsapi.org/v1/articles?source=" + newsSource + "&sortBy=" + sortedBy + "&apiKey=0944a3e49a044c82b4f6c9473a25f0cf",
         type: 'GET',
         success: function(data){
-            console.log(data);
+            // console.log(data);
             handleResponse(data);
         },
         error: function(data) { // Something went wrong, probably source itsn't filterable by value of sortedBy
@@ -51,11 +51,11 @@ function getNews(sortedBy, dataSource) {
                 url: "https://newsapi.org/v1/articles?source=" + newsSource + "&sortBy=top&apiKey=0944a3e49a044c82b4f6c9473a25f0cf",
                 type: 'GET',
                 success: function(data){
-                    console.log(data);
+                    // console.log(data);
                     handleResponse(data);
                 },
                 error: function(data) {
-                    console.log(data);
+                    // console.log(data);
                 }
             });
         }
@@ -73,7 +73,7 @@ function getNews(sortedBy, dataSource) {
         var client = new Diffbot('3fb1ae443ad095199938afcd79f55138');
         // If the source is CNN or CNBC then make the letters upper case, else make first character uppercase only
         var source = ((data.source).length <= 4) ? (data.source).toUpperCase(): (data.source).charAt(0).toUpperCase() + (data.source).slice(1).toLowerCase();
-        console.log("Source: " + source);
+        // console.log("Source: " + source);
         var articles = data.articles;
         // Divs for slider
         var sliderViewer = $('<div class="slide-viewer"></div>');
@@ -90,7 +90,7 @@ function getNews(sortedBy, dataSource) {
         for(var i = 0; i < articleUrls.length; i++){
             var url = articleUrls[i];
             client.article.get({
-               url: url
+               url: url,
                }, function onSuccess(response) {
                    console.log(response);
                    var object = response.objects[0];
@@ -130,11 +130,27 @@ function getNews(sortedBy, dataSource) {
 var slideIndex = 1;
 function nextArticle() {
     var hub = $('#hub');
-    var sliderGroup = hub.find('.slide-group');
-    var oldSlide = sliderGroup.find('.slide-' + slideIndex);
-    console.log(oldSlide);
-    slideIndex = (slideIndex > 10) ? slideIndex = 0: slideIndex = slideIndex + 1;
-    var newSlide = sliderGroup.find('.slide-' + slideIndex);
-    console.log(newSlide);
-    sliderGroup.detach(oldSlide);
+    var slideGroup = $('.slide-group');
+    var firstSlide = slideGroup.children().first();
+    // Animate the articles to shrink
+    var oldDimensions = shrinkArticles();
+    // Remove it from first index
+    var detachedSlide = firstSlide.detach();
+    console.log(firstSlide);
+    // Append it to the last
+    slideGroup.append(detachedSlide);
+    expandArticles(oldDimensions);
+}
+
+function shrinkArticles() {
+    var slideGroup = $('.slide-group');
+    var height = slideGroup.height(); // Save pervious dimensions of div before animating it
+    var width = slideGroup.width();
+    slideGroup.animate({height: 0, width: 0,}, 500);
+    return [height, width]; // Return it in an array, cant return 2 values
+}
+function expandArticles(dimensions) {
+    var slideGroup = $('.slide-group');
+    // Animate it back to its original dimensions
+    slideGroup.animate({height: dimensions[0], width: dimensions[1], 'margin-left':'0','margin-top':'0'});
 }
