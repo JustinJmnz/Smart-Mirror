@@ -3,9 +3,12 @@ File Description
 ----------------
 About: Takes care of the news capabilities
 */
+// For nextArticle() and previousArticle()
+var currentArticle = 0;
 
 // Gets the news based on a sort condidtion and location of the data source
 function getNews(sortedBy, dataSource) {
+    toggleOverlay();
     var newsSource = "";
     if(dataSource != undefined){
         switch (dataSource.toLowerCase()) { // Add new news outlits here. Look here for available news sources with their api name https://newsapi.org/sources
@@ -17,9 +20,6 @@ function getNews(sortedBy, dataSource) {
                 break;
             case "bloomberg":
                 newsSource = "bloomberg";
-                break;
-            case "fortune":
-                newsSource = "fortune";
                 break;
             case "bbc":
                 newsSource = "bbc-news";
@@ -42,7 +42,6 @@ function getNews(sortedBy, dataSource) {
         url: "https://newsapi.org/v1/articles?source=" + newsSource + "&sortBy=" + sortedBy + "&apiKey=0944a3e49a044c82b4f6c9473a25f0cf",
         type: 'GET',
         success: function(data){
-            // console.log(data);
             handleResponse(data);
         },
         error: function(data) { // Something went wrong, probably source itsn't filterable by value of sortedBy
@@ -52,23 +51,47 @@ function getNews(sortedBy, dataSource) {
                 type: 'GET',
                 success: function(data){
                     // console.log(data);
-                    handleResponse(data);
+                     handleResponse(data);
+                    // articles = constructArticlesHTML(data);
                 },
                 error: function(data) {
-                    // console.log(data);
+                    console.log(data);
                 }
             });
         }
     });
-
+    var sliderDiv = $('<div></div>');
+    var articles = [];
+    $(window).off('done-fetching-news-data').on('done-fetching-news-data', function() {
+        currentArticle = 0;
+        console.log('Done fetching data');
+        slideIntoHub(sliderDiv);
+        prepareArticles();
+        toggleOverlay();
+    });
     // Handles Response from getting the data
     function handleResponse(data){
-        var sliderDiv = constructSliderHTML(data);
-        slideIntoHub(sliderDiv);
-    }
+        sliderDiv = sliderDiv.empty();
+        sliderDiv = constructArticlesHTML(data);
 
-    // Constructs HTML based on articles given
-    function constructSliderHTML(data) {
+        // console.log(articles);
+    }
+    function prepareArticles() {
+        var articles = $('.news-articles');
+        var child = 0;
+        articles.children().each(function () {
+            if(child === 0) {
+                $(this).css({'display' : 'block'});
+            } else {
+                $(this).css({'display' : 'none'});
+            }
+            child++;
+        });
+        child = 0;
+    }
+    var articleNumber = 0;
+    // Constructs HTML based on articles given, places them in an []
+    function constructArticlesHTML(data) {
         // Diffbot is a library that will get the article text from the webpage given a url
         var client = new Diffbot('3fb1ae443ad095199938afcd79f55138');
         // If the source is CNN or CNBC then make the letters upper case, else make first character uppercase only
@@ -76,81 +99,104 @@ function getNews(sortedBy, dataSource) {
         // console.log("Source: " + source);
         var articles = data.articles;
         // Divs for slider
-        var sliderViewer = $('<div class="slide-viewer"></div>');
-        var sliderGroup = $('<div class="slide-group"></div>');
-        var sliderButtons = $('<div class="slide-buttons"></div>');
         var articleUrls = [];
         // Get all the article urls
         for(var i = 0; i < articles.length; i++) {
             articleUrls[i] = articles[i].url;
         }
+        var articleDiv = $('<div class="news-articles"></div>');
         // THIS IS IN A SEPERATE LOOP BECAUSE AJAX CALLS ARE TOO SLOW
         // Getting the article information (the text) from url using DiffBot library
-        var slideNumber = 1;
         for(var i = 0; i < articleUrls.length; i++){
             var url = articleUrls[i];
             client.article.get({
                url: url,
                }, function onSuccess(response) {
-                   console.log(response);
                    var object = response.objects[0];
-                   var slide = $('<div class="slide slide-' + (slideNumber++) + '"></div>');
-                   var newsContainerDiv = $('<div id="news-container"></div>');
-                   var newsFirstRowDiv = $('<div class="news-firstRow"></div>');
-                   var newsIconDiv = $('<div class="news-icon"></div>');
-                   var image = $('<img src="' + object.images[0].url + '" height="50px width="50px"/>'); // Maybe not icon?
+                   var newsContainerDiv = $('<div class="news-container"></div>');
+                   var newsLeftSideDiv = $('<div class="news-leftSide"></div>');
                    var newsTitleDiv = $('<div class="news-title"></div>');
+                   var newsPictureDiv = $('<div class="news-picture"></div');
+                   var newsRightSideDiv = $('<div class="news-rightSide"></div>');
+                   var newsTextDiv = $('<div class="news-article">' + object.text + '</div>');
+                   // Check if object has an image
+                   if (object.hasOwnProperty('images')){
+                       if (object.images[0].hasOwnProperty('url')){
+                           var image = $('<img src="' + object.images[0].url + '" height="100px" width="100px"/>');
+                       }
+                   } else {
+                       var image = $('<img src="../../Resources/Pictures/news-icon.png" height="100px" width="100px"/>');
+                   }
+
                    var titleHeader = $('<h3>' + object.title + '</h3>');
-                   var newsSecondRowDiv = $('<div class="news-secondRow"></div>');
-                   var newsDescriptionDiv = $('<div class="news-description">' + object.text + '</div>');
                    // Appending image and title
-                   newsIconDiv.append(image);
+                   newsPictureDiv.append(image);
                    newsTitleDiv.append(titleHeader);
                    // Appending info to inner divs
-                   newsFirstRowDiv.append(newsIconDiv);
-                   newsFirstRowDiv.append(newsTitleDiv);
-                   newsSecondRowDiv.append(newsDescriptionDiv);
+                   newsLeftSideDiv.append(newsTitleDiv);
+                   newsLeftSideDiv.append(newsPictureDiv);
+                   newsRightSideDiv.append(newsTextDiv);
                    // Appending inner divs to news container
-                   newsContainerDiv.append(newsFirstRowDiv);
-                   newsContainerDiv.append(newsSecondRowDiv);
-                   // Append news div to the current slide
-                   slide.append(newsContainerDiv);
-                   // Append slide to the sliderGroup
-                   sliderGroup.append(slide);
+                   newsContainerDiv.append(newsLeftSideDiv);
+                   newsContainerDiv.append(newsRightSideDiv);
+                   // Appending each article to newsArticleDiv
+                   articleDiv.append(newsContainerDiv);
+                   articles.push(newsContainerDiv);
+                   console.log('Article: ' + articleNumber);
+                   console.log('-----------------------------------------');
+                   console.log(response);
+                   if(articleNumber === 9){
+                       articleNumber = 0;
+                       $(window).trigger('done-fetching-news-data');
+                   }
+                   articleNumber++;
                }, function onError(response) {
                      console.log("ERROR: Error with Diffbot");
+                     console.log(response);
                });
         }
-        sliderViewer.append(sliderGroup);
-        sliderViewer.append(sliderButtons);
-        return sliderViewer;
+        return articleDiv;
     }
 
 }
-var slideIndex = 1;
+
 function nextArticle() {
-    var hub = $('#hub');
-    var slideGroup = $('.slide-group');
-    var firstSlide = slideGroup.children().first();
+    var newsArticles = $('.news-articles');
+    var firstSlide = newsArticles.children().eq(currentArticle);
+    currentArticle = (currentArticle === 9) ? currentArticle = 0 : currentArticle = currentArticle + 1;
+    var secondSlide = newsArticles.children().eq(currentArticle);
     // Animate the articles to shrink
     var oldDimensions = shrinkArticles();
+    firstSlide.css({'display' : 'none'});
     // Remove it from first index
-    var detachedSlide = firstSlide.detach();
+    // var detachedSlide = firstSlide.detach();
     console.log(firstSlide);
     // Append it to the last
-    slideGroup.append(detachedSlide);
+    //newsArticles.append(detachedSlide);
+    secondSlide.css({'display' : 'block'});
+    expandArticles(oldDimensions);
+}
+
+function previousArticle() {
+    var newsArticles = $('.news-articles');
+    var currentSlide = newsArticles.children().eq(currentArticle);
+    currentArticle = (currentArticle === 0) ? currentArticle = 9 : currentArticle = currentArticle - 1;
+    var nextSlide = newsArticles.children().eq(currentArticle);
+    var oldDimensions = shrinkArticles();
+    currentSlide.css({'display' : 'none'});
+    nextSlide.css({'display' : 'block'});
     expandArticles(oldDimensions);
 }
 
 function shrinkArticles() {
-    var slideGroup = $('.slide-group');
-    var height = slideGroup.height(); // Save pervious dimensions of div before animating it
-    var width = slideGroup.width();
-    slideGroup.animate({height: 0, width: 0,}, 500);
+    var newsArticles = $('.news-articles');
+    var height = newsArticles.height(); // Save pervious dimensions of div before animating it
+    var width = newsArticles.width();
+    newsArticles.animate({width: 0}, 100);
     return [height, width]; // Return it in an array, cant return 2 values
 }
 function expandArticles(dimensions) {
-    var slideGroup = $('.slide-group');
+    var newsArticles = $('.news-articles');
     // Animate it back to its original dimensions
-    slideGroup.animate({height: dimensions[0], width: dimensions[1], 'margin-left':'0','margin-top':'0'});
+    newsArticles.animate({height: dimensions[0], width: dimensions[1], 'margin-left':'0','margin-top':'0'}, 250);
 }

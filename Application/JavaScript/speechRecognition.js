@@ -24,11 +24,13 @@ function startListening() {
                 $("#map").css('visibility', 'visible');
             },
             '(go to)(next)(article)': function() {
-                console.log('Here');
                 nextArticle();
             },
+            '(go to)(previous)(article)': function () {
+                previousArticle();
+            },
             // Get the news
-            '(what is) (what\'s) (show me) (the) (most) (:filter) (today\'s) (news) (story) (of) (today) (from) (:dataSource)': function(filter, dataSource) {
+            '(what is) (what\'s) (show me) (the) (most) (:filter) (today\'s) news (story) (of) (today) (from) (:dataSource)': function(filter, dataSource) {
                 focusWidget(4);
                 var sortedBy = "";
                 switch (filter.toLowerCase()) {
