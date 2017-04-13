@@ -8,13 +8,15 @@
         <script type="text/javascript" src="../../Resources/Libraries/annyang.js"></script>
         <!-- Article Cleaner script -->
         <script type="text/javascript" src="../../Resources/Libraries/diffbot.js"></script>
-        <!-- Google Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Armata|Poiret+One" rel="stylesheet">
+        <!--  Google Geocoding -->
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCH2yqEHkktr-V4_EAfIEEo6CmLXBGpCwk" type="text/javascript"></script>        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Armata|Poiret+One" rel="stylesheet" />
 
         <!-- Our JavaScript -->
         <script type="text/javascript" src="../JavaScript/animations.js"></script>
         <script type="text/javascript" src="../JavaScript/widgets.js"></script>
         <script type="text/javascript" src="../JavaScript/news.js"></script>
+        <script type="text/javascript" src="../JavaScript/maps.js"></script>
         <script type="text/javascript" src="../JavaScript/speechRecognition.js"></script> <!-- Load this second to last -->
         <script type="text/javascript" src="../JavaScript/index.js"></script> <!-- Load this last -->
         <!-- Our CSS -->
@@ -41,7 +43,13 @@
             </div>
             <div id="section-bottom">
                 <div id="hub">
-                    <!-- <iframe  id="map" width="600" height="450" frameborder="10" style="border:10" src="https://www.google.com/maps/embed/v1/directions?origin=place_id:ChIJi7W5kQ4O6IkRzXyL4BnLnss&destination=place_id:ChIJC7zHsmShwokRbrc0nIuGQ4c&key=AIzaSyBjxjJwxoTVaM25QMcmIrLglwzmkwRmQEw" allowfullscreen></iframe> -->
+                    <div id="maps" style="background-color: white">Naugatuck</div>
+                    <!--  Everything gets put in here on command said -->
+                </div>
+                <div id="speech-spitter">
+                    <p>
+                        <!--  What the user said goes here -->
+                    </p>
                 </div>
             </div>
         </div>

@@ -200,3 +200,24 @@ function expandArticles(dimensions) {
     // Animate it back to its original dimensions
     newsArticles.animate({height: dimensions[0], width: dimensions[1], 'margin-left':'0','margin-top':'0'}, 250);
 }
+function scrollOnNews(upOrDown) {
+    var hub = $('#hub');
+    if(hub.find('.news-articles').length != 0) { // Check if there are any articles even available
+        var newsArticles = $('.news-articles');
+        var current = newsArticles.children().eq(currentArticle);
+        var article = current.children().last();
+        console.log("Scrolling on");
+        console.log(article);
+        if(upOrDown === 0) { // Scroll up
+            console.log("scrolling up");
+            var newPos = article.scrollTop() - 250;
+            article.animate({ scrollTop: newPos }, 1000);
+        } else if(upOrDown === 1) { // Scroll down
+            console.log("scrolling down");
+            var newPos = article.scrollTop() + 250;
+            article.animate({ scrollTop: newPos }, 1000);
+        }
+    } else {
+        console.error('No articles available (Did you forget to say, "Show me the news"?)');
+    }
+}

@@ -40,11 +40,12 @@ body {
     line-height: 0;
 }
 
-/* Bottom Section*/
+/* Bottom Section */
 #section-bottom {
     margin-top: 50px; /* Pushed down 50px because of .bump-up animation*/
     height: 75%;
     text-align: center;
+    position: relative;
 }
 #hub {
     height: 75%;
@@ -56,6 +57,27 @@ body {
 }
 #weather {
     visibility: collapse;
+}
+#speech-spitter {
+    height: auto;
+    width: auto;
+    min-height: 50px;
+    min-width: 100px;
+    opacity: 0.25;
+    border-radius: 10%;
+    font-size: small;
+    vertical-align: bottom;
+    display: inline-block;
+    background-color: white;
+    position: absolute;
+    top: calc(100% - 140px);
+    left: calc(100% - 125px);
+}
+#speech-spitter > p {
+    padding: 5px;
+}
+#speech-spitter > p::first-letter {
+    text-transform: capitalize;
 }
 /* Animations */
 .bump-down {

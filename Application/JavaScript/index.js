@@ -23,8 +23,10 @@ $(function () { // Main Function
     //     prepareArticles();
     // });
 
+    // For testing purposes only
     $('.widget').click(function() {
-        annyang.trigger('Show me the top news from BBC');
+        codeAddress();
+        // annyang.trigger('Show me the top news from BBC');
         // showOverlay();
     });
 });
