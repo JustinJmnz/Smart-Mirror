@@ -26,7 +26,7 @@ $(function () { // Main Function
     // For testing purposes only
     $('.widget').click(function() {
         codeAddress();
-        // annyang.trigger('Show me the top news from BBC');
+        annyang.trigger("show me the map of new york");
         // showOverlay();
     });
 });

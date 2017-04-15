@@ -64,7 +64,6 @@ function getNews(sortedBy, dataSource) {
     var articles = [];
     $(window).off('done-fetching-news-data').on('done-fetching-news-data', function() {
         currentArticle = 0;
-        console.log('Done fetching data');
         slideIntoHub(sliderDiv);
         prepareArticles();
         toggleOverlay();
@@ -73,8 +72,6 @@ function getNews(sortedBy, dataSource) {
     function handleResponse(data){
         sliderDiv = sliderDiv.empty();
         sliderDiv = constructArticlesHTML(data);
-
-        // console.log(articles);
     }
     function prepareArticles() {
         var articles = $('.news-articles');

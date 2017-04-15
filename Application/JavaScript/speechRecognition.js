@@ -11,22 +11,17 @@ function startListening() {
         // Let's define a command.
         var commands = {
             'hi': function () { alert('Hello'); },
-            // -------------------- Weather Speech Recognition --------------------
+            // ------------------------------------------------------------ Weather Speech Recognition ------------------------------------------------------------
             'show me the weather': function() {
                 focusWidget(2);
                 $("#weather").css('visibility', 'visible');
             },
-            // -------------------- Sports Speech Recognition --------------------
+            // ------------------------------------------------------------ Sports Speech Recognition ------------------------------------------------------------
             'show me the time': function(city) {
-                console.log("City: " + city + "\nCountry: " + country);
+                console.log("City: " + city);
                 focusWidget(1);
             },
-            // -------------------- Map Speech Recognition --------------------
-            'show me the map': function() {
-                focusWidget(3);
-                $("#map").css('visibility', 'visible');
-            },
-            // -------------------- News Speech Recognition --------------------
+            // ------------------------------------------------------------ News Speech Recognition ------------------------------------------------------------
             // Scroll down on the article for the news
             'scroll down': function() {
                 scrollOnNews(1);
@@ -69,7 +64,73 @@ function startListening() {
 
                 }
                 getNews(sortedBy, dataSource);
+            },
+            // ------------------------------------------------------------ Map Speech Recognition ------------------------------------------------------------
+            'how do I get to :destination from :source': function(destination, source) {
+                directions = true; // Flag in maps.js
+                getCurrentLocation = false; // Flag in maps.js
+                focusWidget(3);
+                showMap(destination, source);
+            },
+            'how do I get from :source to :destination': function(destination, source) {
+                directions = true; // Flag in maps.js
+                getCurrentLocation = false; // Flag in maps.js
+                focusWidget(3);
+                showMap(destination, source);
+            },
+            'navigate from :source to :destination': function(destination, source) {
+                directions = true; // Flag in maps.js
+                getCurrentLocation = false; // Flag in maps.js
+                focusWidget(3);
+                showMap(destination, source);
+            },
+            'navigate to :destination from :source': function(destination, source) {
+                directions = true; // Flag in maps.js
+                getCurrentLocation = false; // Flag in maps.js
+                focusWidget(3);
+                showMap(destination, source);
+            },
+            'show me directions from :source to :destination': function(destination, source) {
+                directions = true; // Flag in maps.js
+                getCurrentLocation = false; // Flag in maps.js
+                focusWidget(3);
+                showMap(destination, source);
+            },'show me directions to :destination from :source': function(destination, source) {
+                directions = true; // Flag in maps.js
+                getCurrentLocation = false; // Flag in maps.js
+                focusWidget(3);
+                showMap(destination, source);
+            },
+            'show me how to get to :destination from :source': function(destination, source) {
+                directions = true; // Flag in maps.js
+                getCurrentLocation = false; // Flag in maps.js
+                focusWidget(3);
+                showMap(destination, source);
+            },
+            'show me how to get from :source to :destination': function(destination, source) {
+                directions = true; // Flag in maps.js
+                getCurrentLocation = false; // Flag in maps.js
+                focusWidget(3);
+                showMap(destination, source);
+            },
+            'how do I get to *destination': function(destination, source) {
+                directions = true; // Flag in maps.js
+                getCurrentLocation = true; // Flag in maps.js
+                focusWidget(3);
+                showMap(destination, "");
+            },
+            'take me to *destination': function(destination, source) {
+                directions = true; // Flag in maps.js
+                getCurrentLocation = true; // Flag in maps.js
+                focusWidget(3);
+                showMap(destination, "");
+            },
+            '(where is)(show me the map of) *destination': function(destination) {
+                directions = false; // Flag in maps.js
+                focusWidget(3);
+                showMap(destination, ""); // Pass source as blank, not used
             }
+
         };
         // Update the speech-spitter widget with command said
         annyang.addCallback('resultMatch', function(userSaid, commandText, phrases) {

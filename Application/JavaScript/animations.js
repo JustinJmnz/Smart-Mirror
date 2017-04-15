@@ -17,6 +17,7 @@ function slideIntoHub(object) {
 // Removes everything from #hub
 function removeHubContents() {
     var hub = $('#hub');
+    hub.removeClass('hub-border-fade');
     hub.children().each(function() {
         $(this).animate({height: 0}, 500, function() {
             $(this).detach();

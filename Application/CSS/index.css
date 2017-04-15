@@ -109,7 +109,67 @@ body {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
 }
-
+/* ------------- Maps Section ------------- */
+#map-container {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    text-align: -webkit-auto;
+}
+#map-left-side {
+    height: 100%;
+    width: 45%;
+    display: inline-block;
+    box-shadow: 0 0 5px 5px #242f3e, 0 0 5px 10px black;
+    vertical-align: top;
+}
+.map-right-side {
+    height: calc(100% + 5px); /* + 5 pixels because of box-shadow on #map-left-side*/
+    width: 45%;
+    display: inline-block;
+    margin-left: 15px;
+    background-color: white;
+    border-radius: 5px;
+    vertical-align: top;
+}
+.map-info {
+    /*height: 10%;*/
+    width: 96%;
+    display: block;
+    vertical-align: top;
+    margin-top: 5px;
+    margin-left: 5px;
+    border: 5px solid black;
+    border-radius: 5px;
+}
+.map-duration {
+    width: 50%;
+    display: inline-block;
+    text-align: center;
+}
+.map-distance {
+    width: 50%;
+    display: inline-block;
+    text-align: center;
+}
+.map-duration > p {
+    font-size: small;
+}
+.map-distance > p {
+    font-size: small;
+}
+.map-steps {
+    height: 82%;
+    width: 96%;
+    display: block;
+    margin-top: 5px;
+    margin-left: 5px;
+    border: 5px solid black;
+    border-radius: 5px;
+}
+.hub-border-fade {
+    box-shadow: 0 0 5px 5px #242f3e, 0 0 5px 10px black;
+}
 /* ------------- News Section ------------- */
 .news-container {
     height: 100%;
