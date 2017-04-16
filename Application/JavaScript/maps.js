@@ -10,7 +10,7 @@ var coordinates = [0, 0, 0, 0]; // Lat and Long of: First two [0, 0] = first loc
 function showMap(destination, source) {
     removeHubContents();
     toggleOverlay();
-    if(directions === true) { // Show directions only from Point A to Point B
+    if(directions === true && getCurrentLocation === false) { // Show directions only from Point A to Point B
         getTwoLatLong(destination, source);
         createMapDiv();
     } else if(directions === true && getCurrentLocation === true) { // Show me directions only from current location to Point B
@@ -23,8 +23,6 @@ function showMap(destination, source) {
 
 // Event fired once we are done getting the geocode coordinates
 $(window).off('done-getting-coordinates').on('done-getting-coordinates', function() {
-    console.log('--------------');
-    console.log(coordinates);
     if(directions === true) { // Show me directions only
         createDirectionsMap();
     } else if(directions === true && getCurrentLocation === true) { // Show me directions only from current location to Point B
@@ -168,7 +166,7 @@ function createDirectionsMap() {
           var steps = response.routes[0].legs[0].steps;
           $(".map-duration").children().first().text("Duration: " + duration);
           $(".map-distance").children().first().text("Distance: " + distance);
-
+          // Creaate the steps to the destination
           constructSteps(steps);
           console.log(steps);
           var trafficLayer = new google.maps.TrafficLayer();
@@ -181,7 +179,7 @@ function createDirectionsMap() {
 }
 // Create the steps for directions and place them into .map-steps
 function constructSteps(steps) {
-    var stepsDiv = $("<ol class='map-step-container'><ol>");
+    var stepsDiv = $("<ol class='map-step-container'></ol>");
     steps.forEach(function(step) {
         var step = $("<li>" + (step.instructions.replace(/<b>/g, "").replace(/<\/b>/g, "")) + "</li>");
         stepsDiv.append(step);
@@ -307,7 +305,7 @@ function createMapDiv() {
     var mapInfo = $("<div class='map-info'></div>");
     var durationDiv = $("<div class='map-duration'><p></p></div>");
     var distanceDiv = $("<div class='map-distance'><p></p></div>");
-    var stepsDiv = $("<div class='map-steps'><p></p></div>");
+    var stepsDiv = $("<div class='map-steps'></div>");
     mapInfo.append(durationDiv);
     mapInfo.append(distanceDiv);
     rightSideDiv.append(mapInfo);
@@ -319,14 +317,19 @@ function createMapDiv() {
 }
 
 // Get current coordinates from current location
-function getCurrentLatLong() {
+function getCurrentLatLong(destination) {
     if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
+            // Save my current location
+            coordinates[2] = pos.lat;
+            coordinates[3] = pos.lng;
             console.log(pos);
+            // Get the location of my destination
+            getOneLatLong(destination);
         });
     } else {
       // Browser doesn't support Geolocation
@@ -367,4 +370,17 @@ function getOneLatLong(address) {
         console.error("Geocode was not successful for the following reason: " + status);
       }
     });
+}
+// Scroll up or down on .map-steps
+function scrollOnMaps(upOrDown) { // If (upOrDown === 0) ? scroll up : scroll down;
+    var mapSteps = $("#hub").children().first().children().last().children().last(); // lol
+    if($("#hub").find('.map-steps').children().first().children().length > 0) { // Check if there are any articles even available
+        if(upOrDown === 0) { // Scroll Up
+            var newPos = mapSteps.scrollTop() - 250;
+            mapSteps.animate({ scrollTop: newPos }, 1000);
+        } else { // Scroll down
+            var newPos = mapSteps.scrollTop() + 250;
+            mapSteps.animate({ scrollTop: newPos }, 1000);
+        }
+    }
 }

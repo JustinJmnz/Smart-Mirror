@@ -29,11 +29,9 @@ function toggleOverlay() {
     // console.log("overlay");
     // event.preventDefault();
     if(micPaused === false) { // If the mic is un-paused, pause listening
-        console.log('Microphone paused');
         annyang.pause();
         micPaused = true;
     } else { // Else resume listening
-        console.log('Microphone listening');
         annyang.resume();
         micPaused = false;
     }

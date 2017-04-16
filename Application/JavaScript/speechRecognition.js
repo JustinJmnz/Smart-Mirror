@@ -13,33 +13,32 @@ function startListening() {
             'hi': function () { alert('Hello'); },
             // ------------------------------------------------------------ Weather Speech Recognition ------------------------------------------------------------
             'show me the weather': function() {
+                setCurrentlyViewing("weather");
                 focusWidget(2);
                 $("#weather").css('visibility', 'visible');
             },
             // ------------------------------------------------------------ Sports Speech Recognition ------------------------------------------------------------
             'show me the time': function(city) {
+                setCurrentlyViewing("sports");
                 console.log("City: " + city);
                 focusWidget(1);
             },
             // ------------------------------------------------------------ News Speech Recognition ------------------------------------------------------------
-            // Scroll down on the article for the news
-            'scroll down': function() {
-                scrollOnNews(1);
-            },
-            // Scroll up on the article for the news
-            'scroll up': function() {
-                scrollOnNews(0);
-            },
             // Get next article for the news
             '(go to)(next)(article)': function() {
-                nextArticle();
+                if(currentlyViewing() === "news"){
+                    nextArticle();
+                }
             },
             // Get previous article for the news
             '(go to)(previous)(article)': function () {
-                previousArticle();
+                if(currentlyViewing() === "news"){
+                    previousArticle();
+                }
             },
             // Get the news
             '(what is) (what\'s) (show me) (the) (most) (:filter) (today\'s) news (story) (of) (today) (from) (:dataSource)': function(filter, dataSource) {
+                setCurrentlyViewing("news");
                 focusWidget(4);
                 var sortedBy = "";
                 switch (filter) {
@@ -65,72 +64,99 @@ function startListening() {
                 }
                 getNews(sortedBy, dataSource);
             },
+            // ------------------------------------------------------------ News AND Maps Speech Recognition ------------------------------------------------------------
+            // Scroll down on the article/steps for the news OR Maps
+            'scroll down': function() {
+                if(currentlyViewing() === "news"){
+                    scrollOnNews(1); // 1 = Scroll down
+                } else if(currentlyViewing() === "maps") {
+                    scrollOnMaps(1); // 1 = Scroll down
+                }
+            },
+            // Scroll up on the article/steps for the news or Maps
+            'scroll up': function() {
+                if(currentlyViewing() === "news"){
+                    scrollOnNews(0); // 0 = Scroll up
+                } else if(currentlyViewing() === "maps") {
+                    scrollOnMaps(0); // 0 = Scroll up
+                }
+            },
             // ------------------------------------------------------------ Map Speech Recognition ------------------------------------------------------------
             'how do I get to :destination from :source': function(destination, source) {
+                setCurrentlyViewing("maps");
                 directions = true; // Flag in maps.js
                 getCurrentLocation = false; // Flag in maps.js
                 focusWidget(3);
                 showMap(destination, source);
             },
             'how do I get from :source to :destination': function(destination, source) {
+                setCurrentlyViewing("maps");
                 directions = true; // Flag in maps.js
                 getCurrentLocation = false; // Flag in maps.js
                 focusWidget(3);
                 showMap(destination, source);
             },
             'navigate from :source to :destination': function(destination, source) {
+                setCurrentlyViewing("maps");
                 directions = true; // Flag in maps.js
                 getCurrentLocation = false; // Flag in maps.js
                 focusWidget(3);
                 showMap(destination, source);
             },
             'navigate to :destination from :source': function(destination, source) {
+                setCurrentlyViewing("maps");
                 directions = true; // Flag in maps.js
                 getCurrentLocation = false; // Flag in maps.js
                 focusWidget(3);
                 showMap(destination, source);
             },
             'show me directions from :source to :destination': function(destination, source) {
+                setCurrentlyViewing("maps");
                 directions = true; // Flag in maps.js
                 getCurrentLocation = false; // Flag in maps.js
                 focusWidget(3);
                 showMap(destination, source);
             },'show me directions to :destination from :source': function(destination, source) {
+                setCurrentlyViewing("maps");
                 directions = true; // Flag in maps.js
                 getCurrentLocation = false; // Flag in maps.js
                 focusWidget(3);
                 showMap(destination, source);
             },
             'show me how to get to :destination from :source': function(destination, source) {
+                setCurrentlyViewing("maps");
                 directions = true; // Flag in maps.js
                 getCurrentLocation = false; // Flag in maps.js
                 focusWidget(3);
                 showMap(destination, source);
             },
             'show me how to get from :source to :destination': function(destination, source) {
+                setCurrentlyViewing("maps");
                 directions = true; // Flag in maps.js
                 getCurrentLocation = false; // Flag in maps.js
                 focusWidget(3);
                 showMap(destination, source);
             },
             'how do I get to *destination': function(destination, source) {
+                setCurrentlyViewing("maps");
                 directions = true; // Flag in maps.js
                 getCurrentLocation = true; // Flag in maps.js
                 focusWidget(3);
                 showMap(destination, "");
             },
             'take me to *destination': function(destination, source) {
+                setCurrentlyViewing("maps");
                 directions = true; // Flag in maps.js
                 getCurrentLocation = true; // Flag in maps.js
                 focusWidget(3);
                 showMap(destination, "");
             },
-            '(where is)(show me the map of) *destination': function(destination) {
+            '(where is)(show me the) map of *destination': function(destination) {
+                setCurrentlyViewing("maps");
                 directions = false; // Flag in maps.js
                 focusWidget(3);
                 showMap(destination, ""); // Pass source as blank, not used
             }
-
         };
         // Update the speech-spitter widget with command said
         annyang.addCallback('resultMatch', function(userSaid, commandText, phrases) {

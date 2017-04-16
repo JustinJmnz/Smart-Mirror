@@ -79,7 +79,7 @@ body {
 #speech-spitter > p::first-letter {
     text-transform: capitalize;
 }
-/* Animations */
+/* ------------- Animations ------------- */
 .bump-down {
     margin-top: 50px;
 }
@@ -108,6 +108,28 @@ body {
 @keyframes spin {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
+}
+/* ------------- Weather Section ------------- */
+#weather-container {
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 0 5px 10px white;
+}
+.weather-top {
+    /*height: 50%;*/
+    width: 95%;
+    padding: 5px;
+    margin: 0 auto;
+    border: 5px solid black;
+}
+.weekly-forecast {
+    height: 100%;
+    width: 100%;
+}
+.weather-bottom {
+    height: 50%;
+    width: 100%:
 }
 /* ------------- Maps Section ------------- */
 #map-container {
@@ -166,6 +188,10 @@ body {
     margin-left: 5px;
     border: 5px solid black;
     border-radius: 5px;
+    overflow-y: scroll;
+}
+.map-steps::-webkit-scrollbar {
+    display: none;  /* Hide the scroll bar in chrome */
 }
 .hub-border-fade {
     box-shadow: 0 0 5px 5px #242f3e, 0 0 5px 10px black;

@@ -203,14 +203,14 @@ function scrollOnNews(upOrDown) {
         var newsArticles = $('.news-articles');
         var current = newsArticles.children().eq(currentArticle);
         var article = current.children().last();
-        console.log("Scrolling on");
-        console.log(article);
+        // console.log("Scrolling on");
+        // console.log(article);
         if(upOrDown === 0) { // Scroll up
-            console.log("scrolling up");
+            // console.log("scrolling up");
             var newPos = article.scrollTop() - 250;
             article.animate({ scrollTop: newPos }, 1000);
         } else if(upOrDown === 1) { // Scroll down
-            console.log("scrolling down");
+            // console.log("scrolling down");
             var newPos = article.scrollTop() + 250;
             article.animate({ scrollTop: newPos }, 1000);
         }
