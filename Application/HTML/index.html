@@ -18,6 +18,7 @@
         <!-- Our JavaScript -->
         <script type="text/javascript" src="../JavaScript/animations.js"></script>
         <script type="text/javascript" src="../JavaScript/widgets.js"></script>
+        <script type="text/javascript" src="../JavaScript/weather.js"></script>
         <script type="text/javascript" src="../JavaScript/news.js"></script>
         <script type="text/javascript" src="../JavaScript/maps.js"></script>
         <script type="text/javascript" src="../JavaScript/speechRecognition.js"></script> <!-- Load this second to last -->
@@ -31,16 +32,16 @@
         <div id="main-container">
             <div id="section-top">
                 <div class="widget">
-                    <img src="../../Resources/Pictures/clock-icon-white.png" height="100px" width="100px" />
+                    <img src="../../Resources/Pictures/clock-widget.png" height="100px" width="100px" />
                 </div>
                 <div class="widget">
-                    <img src="../../Resources/Pictures/weather-icon-white.png" height="100px" width="100px" />
+                    <img src="../../Resources/Pictures/weather-widget.png" height="100px" width="100px" />
                 </div>
                 <div class="widget">
-                    <img src="../../Resources/Pictures/maps-icon-white.png" height="100px" width="100px"/>
+                    <img src="../../Resources/Pictures/maps-widget.png" height="100px" width="100px"/>
                 </div>
                 <div class="widget">
-                    <img src="../../Resources/Pictures/news-icon-white.png" height="100px" width="100px"/>
+                    <img src="../../Resources/Pictures/news-widget.png" height="100px" width="100px"/>
                 </div>
                 <span class="strech"></span>
             </div>
@@ -49,34 +50,99 @@
                     <!--  Everything gets put in here on command said -->
                     <div id="weather-container">
                         <div class="weather-top">
-                            <div class="weekly-forecast"><table style="width: 100%;" border="1">
-<tbody>
-<tr style="height: 20px;">
-<td style="height: 0px;">&nbsp;</td>
-<td style="height: 0px;">&nbsp;</td>
-<td style="height: 0px;">&nbsp;</td>
-<td style="height: 0px;">&nbsp;</td>
-<td style="height: 0px;">&nbsp;</td>
-<td style="height: 0px;">&nbsp;</td>
-<td style="height: 0px;">&nbsp;</td>
-</tr>
-<tr style="height: 100px;">
-<td style="height: 124px;">&nbsp;</td>
-<td style="height: 124px;">&nbsp;</td>
-<td style="height: 124px;">&nbsp;</td>
-<td style="height: 124px;">&nbsp;</td>
-<td style="height: 124px;">&nbsp;</td>
-<td style="height: 124px;">&nbsp;</td>
-<td style="height: 124px;">&nbsp;</td>
-</tr>
-</tbody>
-</table></div>
+                            <div class="weekly-forecast">
+                                    <div class="weekly-forecast-days-column">
+                                        <div class="weekly-forecast-days-weekday">Sunday</div>
+                                        <div class="weekly-forecast-days-cells">
+                                            <div class="predicted-temp">10&deg F</div>
+                                            <div class="predicted-icon">
+                                                <img src="../../Resources/Pictures/weather-icons/sunny.png" height="75px" width="75px"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="weekly-forecast-days-column">
+                                        <div class="weekly-forecast-days-weekday">Monday</div>
+                                        <div class="weekly-forecast-days-cells">
+                                            <div class="predicted-temp">10&deg F</div>
+                                            <div class="predicted-icon">
+                                                <img src="../../Resources/Pictures/weather-icons/cloudy.png" height="75px" width="75px"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="weekly-forecast-days-column">
+                                        <div class="weekly-forecast-days-weekday">Tuesday</div>
+                                        <div class="weekly-forecast-days-cells">
+                                            <div class="predicted-temp">10&deg F</div>
+                                            <div class="predicted-icon">
+                                                <img src="../../Resources/Pictures/weather-icons/partly-cloudy.png" height="75px" width="75px"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="weekly-forecast-days-column">
+                                        <div class="weekly-forecast-days-weekday">Wednesday</div>
+                                        <div class="weekly-forecast-days-cells">
+                                            <div class="predicted-temp">10&deg F</div>
+                                            <div class="predicted-icon">
+                                                <img src="../../Resources/Pictures/weather-icons/rain.png" height="75px" width="75px"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="weekly-forecast-days-column">
+                                        <div class="weekly-forecast-days-weekday">Thursday</div>
+                                        <div class="weekly-forecast-days-cells">
+                                            <div class="predicted-temp">10&deg F</div>
+                                            <div class="predicted-icon">
+                                                <img src="../../Resources/Pictures/weather-icons/snow.png" height="75px" width="75px"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="weekly-forecast-days-column">
+                                        <div class="weekly-forecast-days-weekday">Friday</div>
+                                        <div class="weekly-forecast-days-cells">
+                                            <div class="predicted-temp">10&deg F</div>
+                                            <div class="predicted-icon">
+                                                <img src="../../Resources/Pictures/weather-icons/storm.png" height="75px" width="75px"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="weekly-forecast-days-column">
+                                        <div class="weekly-forecast-days-weekday">Saturday</div>
+                                        <div class="weekly-forecast-days-cells">
+                                            <div class="predicted-temp">10&deg F</div>
+                                            <div class="predicted-icon">
+                                                <img src="../../Resources/Pictures/weather-icons/sunny.png" height="75px" width="75px"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <!-- <table class="weekly-forecast-table" border="0">
+                                    <tbody>
+                                        <tr class="weekly-forecast-days-cells">
+                                            <td class="weekly-forecast-days-cells"><div>Sunday</div></td>
+                                            <td class="weekly-forecast-days-cells"><div>Monday</div></td>
+                                            <td class="weekly-forecast-days-cells"><div>Tuesday</div></td>
+                                            <td class="weekly-forecast-days-cells"><div>Wednesday</div></td>
+                                            <td class="weekly-forecast-days-cells"><div>Thursday</div></td>
+                                            <td class="weekly-forecast-days-cells"><div>Friday</div></td>
+                                            <td class="weekly-forecast-days-cells"><div>Saturday</div></td>
+                                        </tr>
+                                        <tr class="weekly-forecast-days-info-cells">
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </tbody>
+                                </table> -->
+                            </div>
                         </div>
                         <div class="weather-bottom">
-                            <div class="weather-curent-forecast"></div>
+                            <div class="weather-current-forecast"></div>
                             <div class="weather-bottom-right">
-                                <div class="weather-current-temperature"></div>
-                                <div class="weather-weather-info"></div>
+                                <div class="weather-current-temperature"><p>Current Temperatue: 67&deg F</p></div>
+                                <div class="weather-current-info"><p>Humidity: 30%</p><p>Precipitation Propbablty: 0%</p></div>
                             </div>
                         </div>
                     </div>

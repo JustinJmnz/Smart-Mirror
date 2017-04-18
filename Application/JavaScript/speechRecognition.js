@@ -12,10 +12,11 @@ function startListening() {
         var commands = {
             'hi': function () { alert('Hello'); },
             // ------------------------------------------------------------ Weather Speech Recognition ------------------------------------------------------------
-            'show me the weather': function() {
+            '(show me)(get me)(get) the weather': function() {
                 setCurrentlyViewing("weather");
+                getCurrentLocationForWeather = true; // Flag in weather.js
                 focusWidget(2);
-                $("#weather").css('visibility', 'visible');
+                getWeather();
             },
             // ------------------------------------------------------------ Sports Speech Recognition ------------------------------------------------------------
             'show me the time': function(city) {
@@ -137,7 +138,7 @@ function startListening() {
                 focusWidget(3);
                 showMap(destination, source);
             },
-            'how do I get to *destination': function(destination, source) {
+            'how (do)(can) I get to *destination': function(destination, source) {
                 setCurrentlyViewing("maps");
                 directions = true; // Flag in maps.js
                 getCurrentLocation = true; // Flag in maps.js

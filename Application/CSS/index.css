@@ -64,7 +64,7 @@ body {
     min-height: 50px;
     min-width: 100px;
     opacity: 0.25;
-    border-radius: 10%;
+    border-radius: 5px;
     font-size: small;
     vertical-align: bottom;
     display: inline-block;
@@ -72,6 +72,7 @@ body {
     position: absolute;
     top: calc(100% - 140px);
     left: calc(100% - 125px);
+    box-shadow: 0 0 5px 10px white;
 }
 #speech-spitter > p {
     padding: 5px;
@@ -117,19 +118,78 @@ body {
     box-shadow: 0 0 5px 10px white;
 }
 .weather-top {
-    /*height: 50%;*/
+    height: 45%;
     width: 95%;
-    padding: 5px;
+    padding: 10px;
     margin: 0 auto;
     border: 5px solid black;
+    border-radius: 5px;
 }
 .weekly-forecast {
     height: 100%;
     width: 100%;
 }
+.weekly-forecast-days-column {
+    height: 95%;
+    width: 12%;
+    border: 4px solid black;
+    margin: 2px;
+    border-radius: 2px;
+    display: inline-block;
+}
+.weekly-forecast-days-weekday {
+    height: 10%;
+    width: 100%;
+    border-bottom: 2px solid black;
+    background-color: lightblue;
+}
+.weekly-forecast-days-cells {
+    height: 90%;
+    width: 100%;
+    background-color: lightblue;
+}
+.weekly-forecast-days-info-cells {
+    height: 150px;
+}
 .weather-bottom {
-    height: 50%;
-    width: 100%:
+    height: 40%;
+    width: 95%;
+    padding: 10px;
+    margin: 0 auto;
+    margin-top: 5px;
+    border: 5px solid black;
+    border-radius: 5px;
+}
+.weather-current-forecast {
+    height: 95%;
+    width: 47%;
+    display: inline-block;
+    margin-left: -10px; /* Offset borders making it un-centered in .weather-bottom */
+    /*padding-bottom: 15px; /* Offset borders making .weather-current-forecast not long enough */*/
+    vertical-align: top;
+    border: 5px solid black;
+    border-radius: 5px;
+}
+.weather-bottom-right {
+    height: calc(95% - 5px);
+    width: 47%;
+    display: inline-block;
+    vertical-align: top;
+}
+.weather-current-temperature {
+    height: calc(50% - 5px);
+    width: 100%;
+    display: block;
+    margin-bottom: 5px;
+    border: 5px solid black;
+    border-radius: 5px;
+}
+.weather-current-info {
+    height: calc(50% - 5px);
+    width: 100%;
+    display: block;
+    border: 5px solid black;
+    border-radius: 5px;
 }
 /* ------------- Maps Section ------------- */
 #map-container {

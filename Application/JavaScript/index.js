@@ -29,8 +29,8 @@ $(function () { // Main Function
 
     // For testing purposes only
     $('.widget').click(function() {
-        codeAddress();
-        annyang.trigger("show me the map of new york");
+        // codeAddress();
+        annyang.trigger("get the weather");
         // showOverlay();
     });
 });
