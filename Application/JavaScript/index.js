@@ -6,7 +6,7 @@ About: Main file, this file starts the program
 var viewingNews = false;
 var viewingMaps = false;
 var viewingWeather = false;
-var viewingSports = false;
+var viewingTime = false;
 
 $(function () { // Main Function
     startListening();
@@ -30,7 +30,7 @@ $(function () { // Main Function
     // For testing purposes only
     $('.widget').click(function() {
         // codeAddress();
-        annyang.trigger("show me the weather");
+        annyang.trigger("show me the time");
         // showOverlay();
     });
 });
@@ -40,22 +40,22 @@ function setCurrentlyViewing(widget) {
         viewingMaps = true;
         viewingNews = false;
         viewingWeather = false;
-        viewingSports = false;
+        viewingTime = false;
     } else if(widget === "news") {
         viewingMaps = false;
         viewingNews = true;
         viewingWeather = false;
-        viewingSports = false;
+        viewingTime = false;
     } else if(widget === "weather") {
         viewingMaps = false;
         viewingNews = false;
         viewingWeather = true;
-        viewingSports = false;
-    } else if(widget === "sports") {
+        viewingTime = false;
+    } else if(widget === "time") {
         viewingMaps = false;
         viewingNews = false;
         viewingWeather = false;
-        viewingSports = true;
+        viewingTime = true;
     }
 }
 // Check to see what I am currently viewing
@@ -66,7 +66,7 @@ function currentlyViewing() {
         return "news";
     } else if(viewingWeather) {
         return "weather";
-    } else if(viewingSports){
+    } else if(viewingTime){
         return "sports";
     }
 }

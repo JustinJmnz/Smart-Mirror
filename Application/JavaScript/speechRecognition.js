@@ -11,18 +11,67 @@ function startListening() {
         // Let's define a command.
         var commands = {
             'hi': function () { alert('Hello'); },
+
+            // ------------------------------------------------------------ Clock Speech Recognition ------------------------------------------------------------
+            'show me the time': function(city) {
+                setCurrentlyViewing("time");
+                focusWidget(1);
+                createClock();
+            },
             // ------------------------------------------------------------ Weather Speech Recognition ------------------------------------------------------------
-            '(show me)(get me)(get) the weather': function() {
+            'show me the weather': function() {
                 setCurrentlyViewing("weather");
                 getCurrentLocationForWeather = true; // Flag in weather.js
                 focusWidget(2);
-                getWeather();
+                getWeather("");
             },
-            // ------------------------------------------------------------ Sports Speech Recognition ------------------------------------------------------------
-            'show me the time': function(city) {
-                setCurrentlyViewing("sports");
-                console.log("City: " + city);
-                focusWidget(1);
+            'get me the weather': function() {
+                setCurrentlyViewing("weather");
+                getCurrentLocationForWeather = true; // Flag in weather.js
+                focusWidget(2);
+                getWeather("");
+            },
+            'what\'s the weather (like)': function() {
+                setCurrentlyViewing("weather");
+                getCurrentLocationForWeather = true; // Flag in weather.js
+                focusWidget(2);
+                getWeather("");
+            },
+            'show me the weather for *destination': function(destination) {
+                setCurrentlyViewing("weather");
+                getCurrentLocationForWeather = false; // Flag in weather.js
+                focusWidget(2);
+                getWeather(destination);
+            },
+            'show me the weather in *destination': function(destination) {
+                setCurrentlyViewing("weather");
+                getCurrentLocationForWeather = false; // Flag in weather.js
+                focusWidget(2);
+                getWeather(destination);
+            },
+            'get me the weather in *destination': function(destination) {
+                setCurrentlyViewing("weather");
+                getCurrentLocationForWeather = false; // Flag in weather.js
+                focusWidget(2);
+                getWeather(destination);
+            },
+            'get me the weather for *destination': function(destination) {
+                setCurrentlyViewing("weather");
+                getCurrentLocationForWeather = false; // Flag in weather.js
+                focusWidget(2);
+                getWeather(destination);
+            },
+            'what\'s the weather (like) in *destination': function(destination) {
+                setCurrentlyViewing("weather");
+                getCurrentLocationForWeather = false; // Flag in weather.js
+                focusWidget(2);
+                getWeather(destination);
+            },
+            'what\'s the weather (like) for *destination': function(destination) {
+                setCurrentlyViewing("weather");
+                getCurrentLocationForWeather = false; // Flag in weather.js
+                focusWidget(2);
+                getWeather(destination);
             },
             // ------------------------------------------------------------ News Speech Recognition ------------------------------------------------------------
             // Get next article for the news

@@ -1,8 +1,9 @@
 /*
 File Description
 ----------------
-About: Maps file, this file contains everything baout the maps
+About: Maps file, this file contains everything about the maps
 */
+
 var directions = false; // This is set in speechRecognition.js as a flag to show directions or not
 var getCurrentLocation = false; // This is set in speechRecognition.js as a flag to get current location or not
 var coordinates = [0, 0, 0, 0]; // Lat and Long of: First two [0, 0] = first location -> Second two [0, 0] = second location

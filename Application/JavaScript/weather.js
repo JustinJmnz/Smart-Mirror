@@ -4,19 +4,20 @@ File Description
 About: Weather file, this file contains everything about the weather capabilities
 */
 var getCurrentLocationForWeather = false; // Flag set in speechRecognition.js
-var currentCoordinates = [0, 0];
+var coordinates = [0, 0];
 // Called from speechRecognition.js as main weather method
-function getWeather() {
+function getWeather(location) {
     toggleOverlay();
-    if(getCurrentLocationForWeather === true){
-        console.log("getWeather();");
+    if(getCurrentLocationForWeather === true) { // Get weather for current location
         getCurrentWeatherLocation();
+    } else { // Get weather for desired location
+        getDesiredWeatherLocation(location);
     }
 }
 // Triggered when we are done getting the current coordinates
-$(window).off("done-getting-current-coordinates").on("done-getting-current-coordinates", function() {
-    console.log("Location Found: " + currentCoordinates[0] + ", " + currentCoordinates[1]);
-    getCurrentWeatherForLocation(currentCoordinates[0], currentCoordinates[1]);
+$(window).off("done-getting-weather-coordinates").on("done-getting-weather-coordinates", function() {
+    //console.log("Location Found: " + coordinates[0] + ", " + coordinates[1]);
+    getCurrentWeatherForLocation(coordinates[0], coordinates[1]);
 });
 // Gets the weather for the given latitude and longitude
 function getCurrentWeatherForLocation(lat, long) {
@@ -140,19 +141,22 @@ function createWeatherDivs(data) {
     var bottomDiv = $("<div class='weather-bottom'></div>");
     // Bottom Left side
     var currentForecast = $("<div class='weather-current-forecast'></div>");
-    var currentTemperature = $("<div class='current-temperature'>Currently: " + (data.currently.apparentTemperature + "").slice(0, 2) + "&deg F</div>");
+    var currentDay = $("<div class='current-day'>Currently</div>");
+    var currentTemperature = $("<div class='current-temperature'>Temperature: " + (data.currently.apparentTemperature + "").slice(0, 2) + "&deg F</div>");
     var currentIcon = $("<div class='current-icon'></div>");
     var iconSource = getIcon(data.currently.icon);
     var icon = $("<img src='" + iconSource + "' width='75px' height='75px' />");
     var currentInfo = $("<div class='current-info'></div>");
-    var currentHumidity = $("<p class='current-humidity'>Humidity: " + ((data.currently.humidity * 100) + "%") + "</p>");
-    var chanceOfRain = $("<p class='current-chance-of-rain'>Chance of rain: " + ((data.currently.precipProbability * 100) + "%") + "</p>");
+    var currentHumidity = $("<p class='current-humidity'>Humidity: " + (Math.round((data.currently.humidity * 100)) + "%") + "</p>");
+    var chanceOfRain = $("<p class='current-chance-of-rain'>Chance of rain: " + (Math.round((data.currently.precipProbability * 100)) + "%") + "</p>");
     // Bottom Right side
     var bottomRight = $("<div class='weather-bottom-right'></div>");
+    var currentInfoDay = $("<div class='current-info-day'>Today</div>");
     var maxMinTemp = $("<div class='weather-high-low-temperature'></div>");
     var highTemp = $("<p class='weather-high-temp'>High: " + (data.daily.data[0].apparentTemperatureMax + "").slice(0, 2) + "&deg F</p>");
     var lowTemp = $("<p class='weather-low-temp'>Low: " + (data.daily.data[0].apparentTemperatureMin + "").slice(0, 2) + "&deg F</p>");
     var extraInfo = $("<div class='weather-current-info'></div>");
+    var extraInfoTitle = $("<div class='extra-info-title'>Summary</div>");
     var extraSummary = $("<p>" + data.daily.data[0].summary + "</p>");
     // Appending Top stuff
     weatherTopDiv.append(weeklyForecastDiv);
@@ -160,12 +164,15 @@ function createWeatherDivs(data) {
     currentInfo.append(currentHumidity);
     currentInfo.append(chanceOfRain);
     currentIcon.append(icon);
+    currentForecast.append(currentDay);
     currentForecast.append(currentTemperature);
     currentForecast.append(currentIcon);
     currentForecast.append(currentInfo);
     bottomDiv.append(currentForecast);
     // Appending Bottom right stuff
+    extraInfo.append(extraInfoTitle);
     extraInfo.append(extraSummary);
+    maxMinTemp.append(currentInfoDay);
     maxMinTemp.append(highTemp);
     maxMinTemp.append(lowTemp);
     bottomRight.append(maxMinTemp);
@@ -177,6 +184,32 @@ function createWeatherDivs(data) {
     toggleOverlay();
     slideIntoHub(weatherContainerDiv);
 
+}
+// Get current coordinates from current location ---- Similar function in maps.js ----
+function getCurrentWeatherLocation() {
+    if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+              coordinates[0] = position.coords.latitude;
+              coordinates[1] = position.coords.longitude;
+              $(window).trigger("done-getting-weather-coordinates");
+        });
+    } else {
+      // Browser doesn't support Geolocation
+      console.error("Browser can't support geolocation");
+    }
+}
+// Get coordinates from desired location
+function getDesiredWeatherLocation(location) {
+    geocoder = new google.maps.Geocoder();
+    geocoder.geocode( { 'address': location}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+          coordinates[0] = results[0].geometry.location.lat();
+          coordinates[1] = results[0].geometry.location.lng();
+          $(window).trigger('done-getting-weather-coordinates');
+      } else {
+        console.error("Geocode was not successful for the following reason: " + status);
+      }
+    });
 }
 // Gets the Icon given the iconText from the response
 function getIcon(iconText) {
@@ -203,39 +236,26 @@ function getWeekday(weekdayShortened) {
     var weekday = "";
     switch (weekdayShortened) {
         case "Sun":
-            weekday = "Sunday";
-            break;
+        weekday = "Sunday";
+        break;
         case "Mon":
-            weekday = "Monday";
-            break;
+        weekday = "Monday";
+        break;
         case "Tue":
-            weekday = "Tuesday";
-            break;
+        weekday = "Tuesday";
+        break;
         case "Wed":
-            weekday = "Wednesday";
-            break;
+        weekday = "Wednesday";
+        break;
         case "Thu":
-            weekday = "Thursday";
-            break;
+        weekday = "Thursday";
+        break;
         case "Fri":
-            weekday = "Friday";
-            break;
+        weekday = "Friday";
+        break;
         case "Sat":
-            weekday = "Saturday";
-            break;
+        weekday = "Saturday";
+        break;
     }
     return weekday;
-}
-// Get current coordinates from current location ---- Similar function in maps.js ----
-function getCurrentWeatherLocation() {
-    if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-              currentCoordinates[0] = position.coords.latitude;
-              currentCoordinates[1] = position.coords.longitude;
-              $(window).trigger("done-getting-current-coordinates");
-        });
-    } else {
-      // Browser doesn't support Geolocation
-      console.error("Browser can't support geolocation");
-    }
 }
