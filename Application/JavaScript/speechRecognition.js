@@ -152,7 +152,13 @@ function startListening() {
                 focusWidget(3);
                 showMap(destination, "");
             },
-            '(where is)(show me the) map of *destination': function(destination) {
+            'where is *destination': function(destination) {
+                setCurrentlyViewing("maps");
+                directions = false; // Flag in maps.js
+                focusWidget(3);
+                showMap(destination, ""); // Pass source as blank, not used
+            },
+            'show me the map of *destination': function(destination) {
                 setCurrentlyViewing("maps");
                 directions = false; // Flag in maps.js
                 focusWidget(3);

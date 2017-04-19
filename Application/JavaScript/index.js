@@ -30,7 +30,7 @@ $(function () { // Main Function
     // For testing purposes only
     $('.widget').click(function() {
         // codeAddress();
-        annyang.trigger("get the weather");
+        annyang.trigger("show me the weather");
         // showOverlay();
     });
 });
