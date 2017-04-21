@@ -19,7 +19,11 @@ function removeHubContents() {
     var hub = $('#hub');
     hub.removeClass('hub-border-fade');
     hub.children().each(function() {
-        $(this).animate({height: 0}, 500, function() {
+        //  Promise.resolve($(this).animate({ height: 0, queue: false }, 500).promise());
+        //  Promise.all([p1, p2]).then(function () {
+        //      return $(this).animate({ height: 0, queue: false }, 500).promise();
+        //  });
+        $(this).animate({height: 0}, 500).promise().done(function() {
             $(this).detach();
         });
     });

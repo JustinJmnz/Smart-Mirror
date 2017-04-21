@@ -13,10 +13,8 @@ function showMap(destination, source) {
     toggleOverlay();
     if(directions === true && getCurrentLocation === false) { // Show directions only from Point A to Point B
         getTwoLatLong(destination, source);
-        createMapDiv();
     } else if(directions === true && getCurrentLocation === true) { // Show me directions only from current location to Point B
         getCurrentLatLong(destination);
-        createMapDiv();
     } else { // Show me a generic map
         getOneLatLong(destination); // Stored as [lat, long]
     }
@@ -25,9 +23,8 @@ function showMap(destination, source) {
 // Event fired once we are done getting the geocode coordinates
 $(window).off('done-getting-coordinates').on('done-getting-coordinates', function() {
     if(directions === true) { // Show me directions only
+        createMapDiv();
         createDirectionsMap();
-    } else if(directions === true && getCurrentLocation === true) { // Show me directions only from current location to Point B
-        // Do stuff
     } else { // Show me a generic map
         createGenericMap();
     }
@@ -173,7 +170,7 @@ function createDirectionsMap() {
           var trafficLayer = new google.maps.TrafficLayer();
           trafficLayer.setMap(map);
         } else {
-          window.alert('Directions request failed due to ' + status);
+          console.error('Directions request failed due to ' + status);
         }
     });
   $('#hub').removeClass('hub-border-fade');
