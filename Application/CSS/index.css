@@ -55,6 +55,9 @@ body {
     display: inline-block;
     position: relative;
 }
+.hub-border-fade {
+    box-shadow: 0 0 5px 5px #242f3e, 0 0 5px 10px black;
+}
 #map {
     visibility: collapse;
 }
@@ -285,9 +288,9 @@ p.current-chance-of-rain {
 .map-steps::-webkit-scrollbar {
     display: none;  /* Hide the scroll bar in chrome */
 }
-.hub-border-fade {
-    box-shadow: 0 0 5px 5px #242f3e, 0 0 5px 10px black;
-}
+
+.map img { background-color: transparent; }
+#map-canvas { width:400px; height:450px; }
 /* ------------- News Section ------------- */
 .news-container {
     height: 100%;

@@ -7,13 +7,17 @@ About: Maps file, this file contains everything about the maps
 var directions = false; // This is set in speechRecognition.js as a flag to show directions or not
 var getCurrentLocation = false; // This is set in speechRecognition.js as a flag to get current location or not
 var coordinates = [0, 0, 0, 0]; // Lat and Long of: First two [0, 0] = first location -> Second two [0, 0] = second location
+var zoomDestination = ""; // Used to set the zoom is desired location is a specific address or generic city
 // main function that starts the map feature
 function showMap(destination, source) {
-    removeHubContents();
+    zoomDestination = destination;
     toggleOverlay();
+    removeHubContents();
     if(directions === true && getCurrentLocation === false) { // Show directions only from Point A to Point B
+        createMapDiv();
         getTwoLatLong(destination, source);
     } else if(directions === true && getCurrentLocation === true) { // Show me directions only from current location to Point B
+        createMapDiv();
         getCurrentLatLong(destination);
     } else { // Show me a generic map
         getOneLatLong(destination); // Stored as [lat, long]
@@ -23,7 +27,6 @@ function showMap(destination, source) {
 // Event fired once we are done getting the geocode coordinates
 $(window).off('done-getting-coordinates').on('done-getting-coordinates', function() {
     if(directions === true) { // Show me directions only
-        createMapDiv();
         createDirectionsMap();
     } else { // Show me a generic map
         createGenericMap();
@@ -166,11 +169,15 @@ function createDirectionsMap() {
           $(".map-distance").children().first().text("Distance: " + distance);
           // Creaate the steps to the destination
           constructSteps(steps);
-          console.log(steps);
+          console.log(response);
+        //   console.log(steps);
           var trafficLayer = new google.maps.TrafficLayer();
           trafficLayer.setMap(map);
         } else {
-          console.error('Directions request failed due to ' + status);
+          spitToSpitter("Directions failed!");
+          removeOverlay();
+          removeHubContents();
+          focusWidget(0);
         }
     });
   $('#hub').removeClass('hub-border-fade');
@@ -186,11 +193,13 @@ function constructSteps(steps) {
 }
 // Creates a generic map inside mapDiv with one point of interest
 function createGenericMap() {
+    var zoomLevel = (zoomDestination.length > 10) ? 15 : 10;
+    console.log("Zoom is: " + zoomLevel);
     var mapOptions = { // Options for the controls of the map, zoom, pan, etc...
         // Need these
         center: new google.maps.LatLng(coordinates[0], coordinates[1]), // Center of map
         mapTypeId: google.maps.MapTypeId.ROADMAP, // Type of Map
-        zoom: 13,
+        zoom: zoomLevel,
         // Extra features
         zoomControl: false,
         panControl: false,
@@ -310,7 +319,7 @@ function createMapDiv() {
     rightSideDiv.append(stepsDiv);
     mapContainerDiv.append(leftSideDiv);
     mapContainerDiv.append(rightSideDiv);
-    removeHubContents();
+    // removeHubContents();
     hub.append(mapContainerDiv);
 }
 
@@ -331,7 +340,9 @@ function getCurrentLatLong(destination) {
         });
     } else {
       // Browser doesn't support Geolocation
-      console.error("Browser can't support geolocation");
+      removeOverlay();
+      removeHubContents();
+      focusWidget(0);
     }
 }
 // Get the coordinates from two addresses
@@ -347,11 +358,17 @@ function getTwoLatLong(destination, source) {
                 coordinates[3] = results[0].geometry.location.lng();
                 $(window).trigger('done-getting-coordinates');
             } else {
-              console.error("Geocode was not successful for the following reason: " + status);
+              spitToSpitter("Unrecognized Address");
+              removeOverlay();
+              removeHubContents();
+              focusWidget(0);
             }
           });
       } else {
-        console.error("Geocode was not successful for the following reason: " + status);
+        spitToSpitter("Unrecognized Address");
+        removeOverlay();
+        removeHubContents();
+        focusWidget(0);
       }
     });
 
@@ -365,7 +382,10 @@ function getOneLatLong(address) {
           coordinates[1] = results[0].geometry.location.lng();
           $(window).trigger('done-getting-coordinates');
       } else {
-        console.error("Geocode was not successful for the following reason: " + status);
+        spitToSpitter("Unrecognized Address");
+        removeOverlay();
+        removeHubContents();
+        focusWidget(0);
       }
     });
 }

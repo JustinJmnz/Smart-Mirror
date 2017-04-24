@@ -16,6 +16,12 @@ function focusWidget(number) {
     clearFocus();
     removeHubContents();
     switch (number) {
+        case 0:
+            widgetTime.removeClass('bump-down');
+            widgetWeather.removeClass('bump-down');
+            widgetMap.removeClass('bump-down');
+            widgetNews.removeClass('bump-down');
+            break;
         case 1:
             var widgetImg = widgetTime.children().first();
             if (widgetImg.hasClass('bump-down')){
@@ -64,4 +70,9 @@ function clearFocus() {
     widgetWeather.children().first().removeClass('bump-down');
     widgetMap.children().first().removeClass('bump-down');
     widgetNews.children().first().removeClass('bump-down');
+}
+
+function spitToSpitter(text) {
+    var spitter = $('#speech-spitter > p');
+    spitter.text(text);
 }

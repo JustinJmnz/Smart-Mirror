@@ -195,7 +195,9 @@ function getCurrentWeatherLocation() {
         });
     } else {
       // Browser doesn't support Geolocation
-      console.error("Browser can't support geolocation");
+      removeOverlay();
+      removeHubContents();
+      focusWidget(0);
     }
 }
 // Get coordinates from desired location
@@ -207,7 +209,10 @@ function getDesiredWeatherLocation(location) {
           coordinates[1] = results[0].geometry.location.lng();
           $(window).trigger('done-getting-weather-coordinates');
       } else {
-        console.error("Geocode was not successful for the following reason: " + status);
+        spitToSpitter("Unrecognized Address");
+        removeOverlay();
+        removeHubContents();
+        focusWidget(0);
       }
     });
 }

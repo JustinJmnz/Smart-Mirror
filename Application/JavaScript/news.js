@@ -3,6 +3,7 @@ File Description
 ----------------
 About: Takes care of the news capabilities
 */
+var DIFFBOT_KEY = "3fb1ae443ad095199938afcd79f55138";
 // For nextArticle() and previousArticle()
 var currentArticle = 0;
 
@@ -90,7 +91,7 @@ function getNews(sortedBy, dataSource) {
     // Constructs HTML based on articles given, places them in an []
     function constructArticlesHTML(data) {
         // Diffbot is a library that will get the article text from the webpage given a url
-        var client = new Diffbot('3fb1ae443ad095199938afcd79f55138');
+        var client = new Diffbot(DIFFBOT_KEY);
         // If the source is CNN or CNBC then make the letters upper case, else make first character uppercase only
         var source = ((data.source).length <= 4) ? (data.source).toUpperCase(): (data.source).charAt(0).toUpperCase() + (data.source).slice(1).toLowerCase();
         // console.log("Source: " + source);
@@ -215,6 +216,9 @@ function scrollOnNews(upOrDown) {
             article.animate({ scrollTop: newPos }, 1000);
         }
     } else {
-        console.error('No articles available (Did you forget to say, "Show me the news"?)');
+        spitToSpitter("Nothing to scroll on");
+        removeOverlay();
+        removeHubContents();
+        focusWidget(0);
     }
 }

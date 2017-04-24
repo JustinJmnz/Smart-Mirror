@@ -30,7 +30,7 @@ $(function () { // Main Function
     // For testing purposes only
     $('.widget').click(function() {
         // codeAddress();
-        annyang.trigger("show me the time");
+        annyang.trigger("show me the news from CNBC");
         // showOverlay();
     });
 });
