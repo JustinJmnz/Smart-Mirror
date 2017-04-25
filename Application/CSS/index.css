@@ -50,7 +50,7 @@ body {
     position: relative;
 }
 #hub {
-    height: 75%;
+    height: 35%;
     width: 75%;
     display: inline-block;
     position: relative;
@@ -102,13 +102,13 @@ body {
 }
 /* ------------- Weather Section ------------- */
 #weather-container {
-    height: 100%;
+    /*height: 100%;*/
     width: 100%;
     background-color: white;
     box-shadow: 0 0 5px 10px white;
 }
 .weather-top {
-    height: 45%;
+    height: 35%;
     width: 95%;
     padding: 10px;
     margin: 0 auto;
@@ -132,6 +132,7 @@ body {
     width: 100%;
     border-bottom: 2px solid black;
     background-color: lightblue;
+    font-size: small;
 }
 .weekly-forecast-days-cells {
     height: 90%;
@@ -145,7 +146,7 @@ body {
     padding-top: 30px;
 }
 .weather-bottom {
-    height: 40%;
+    height: 35%;
     width: 95%;
     padding: 10px;
     margin: 0 auto;
@@ -242,7 +243,7 @@ p.current-chance-of-rain {
 }
 .map-right-side {
     height: calc(100% + 5px); /* + 5 pixels because of box-shadow on #map-left-side*/
-    width: 45%;
+    width: 50%;
     display: inline-block;
     margin-left: 15px;
     background-color: white;
@@ -304,7 +305,7 @@ p.current-chance-of-rain {
 }
 .news-leftSide {
     height: 90%;
-    width: 25%;
+    width: 32%;
     display: inline-block;
     /*vertical-align: top;*/
     margin-top: 15px;
@@ -338,7 +339,7 @@ p.current-chance-of-rain {
 }
 .news-rightSide {
     height: 90%;
-    width: 70%;
+    width: 60%;
     display: inline-block;
     overflow-y: scroll;
     vertical-align: top;
@@ -363,7 +364,7 @@ p.current-chance-of-rain {
 canvas {
 	display: block;
 	width: 100%;
-	height: 100%;
+	/*height: 100%;*/
 }
 /* --------------- Loader --------------- */
 .dots {
@@ -391,7 +392,7 @@ canvas {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #53e455;
+  background: #FFFFFF;
   position: absolute;
   left: 50%;
   top: -55px;

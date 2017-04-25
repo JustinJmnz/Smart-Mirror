@@ -20,8 +20,8 @@ function createClock() {
     hub.append(clockContainer);
     // slideIntoHub(clockContainer);
     var c = document.getElementById("hub").appendChild(document.createElement("canvas")),
-    	w = innerWidth,
-    	h = innerHeight;
+    	w = $("#hub").innerWidth(),
+    	h = $("#hub").innerHeight();
 
     c.width = w;
     c.height = h;
